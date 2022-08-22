@@ -1,0 +1,46 @@
+
+<div class="container">
+    <a href="/home" class="a"><button class="btn">Home</button></a>
+    <h2>Add Product</h2>
+
+    <div class="content-block dx-card responsive-paddings" style="padding: 2rem;">
+        <dx-form id="form" [(formData)]="product" labelLocation="top" [colCount]="2">
+        </dx-form>
+    </div>
+
+    <div class="dx-field-value" style="padding: 1rem;">
+        <dx-button icon="fa-solid fa-circle-plus" text="Add" stylingMode="contained" type="success"
+            (onClick)="addProduct()" *ngIf="!edit">
+        </dx-button>
+        <dx-button text="Update" stylingMode="contained" type="default" 
+            (onClick)="updateProduct()" *ngIf="edit">
+        </dx-button>
+    </div>        
+
+    <div class="container_grid">
+        <h2 class="content-block">Products list</h2>
+        <dx-data-grid id="gridContainer" [dataSource]="listProduct" [allowColumnReordering]="true"
+            [allowColumnResizing]="true" [columnAutoWidth]="true" [showBorders]="true">
+            <dxo-paging [pageSize]="4"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxi-column dataField="productName"></dxi-column>
+            <dxi-column dataField="price"></dxi-column>                    
+            <dxi-column caption="Options" width="250" cellTemplate="optionsTemplate"></dxi-column>
+
+            <div *dxTemplate="let data of 'optionsTemplate'">
+                <div class="m-auto">
+                    <dx-button text="Update" stylingMode="contained" type="default" (onClick)="editProduct(data)">
+                    </dx-button>                
+    
+                    <dx-button text="Delete" stylingMode="contained" type="danger" (onClick)="removeProduct(data)" >
+                    </dx-button>
+                </div>
+            </div>
+
+        </dx-data-grid>
+    </div>
+
+    
+</div>
+
